@@ -9,6 +9,31 @@ function saveStudents(data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
+function compressImage(file, callback) {
+  const img = new Image();
+  const reader = new FileReader();
+
+  reader.onload = e => {
+    img.src = e.target.result;
+  };
+
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    const MAX_WIDTH = 600;
+
+    const scale = Math.min(1, MAX_WIDTH / img.width);
+    canvas.width = img.width * scale;
+    canvas.height = img.height * scale;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    callback(canvas.toDataURL("image/jpeg", 1.0)); // compressed
+  };
+
+  reader.readAsDataURL(file);
+}
+
 function toggleStudentForm() {
   const form = document.getElementById("studentForm");
   const btn = document.querySelector(".toggle-btn");
@@ -88,9 +113,9 @@ function addOrUpdateStudent() {
   };
 
   if (photoEl.files[0]) {
-    const reader = new FileReader();
-    reader.onload = () => saveStudent(reader.result);
-    reader.readAsDataURL(photoEl.files[0]);
+    compressImage(photoEl.files[0], compressed => {
+      saveStudent(compressed);
+    });
   } else {
     saveStudent();
   }
