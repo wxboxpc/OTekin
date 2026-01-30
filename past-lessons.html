@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="card">
+  <h3>Past Lessons</h3>
+</div>
+
+<div id="past"></div>
+
+<script>
+const past = JSON.parse(localStorage.getItem("pastLessons") || "[]");
+
+past.sort((a,b) => b.completedAt.localeCompare(a.completedAt));
+
+const students = JSON.parse(localStorage.getItem("students") || "[]");
+const div = document.getElementById("past");
+
+past.forEach(l => {
+  const s = students.find(st => st.id == l.studentId);
+  div.innerHTML += `
+    <div class="lesson">
+      <strong>${l.date}</strong> — ${l.lessonName}<br>
+      ${l.startHour}–${l.endHour} (${l.durationMins}mins)<br><br>
+      
+      ${s?.photo ? `<img src="${s?.photo}" width="80" style="border-radius:50%">` : ""}
+      <strong>${s?.firstName} ${s?.lastName}</strong><br>
+      Age: ${s?.age}<br>
+      Phone: ${s?.phone}<br>
+      ${s?.note}<br><br>
+
+      📝 <strong>Ders ön-notu: </strong>${l?.note}<br>
+      📝 <strong>Ders sonrası analiz: </strong>${l.completionNote || ""}
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>

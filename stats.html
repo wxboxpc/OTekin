@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="card">
+  <h3>Statistics</h3>
+  <p>Total Students: <strong id="studentsCount"></strong></p>
+  <p>Lessons Assigned: <strong id="lessonsCount"></strong></p>
+  <p>Lessons Completed: <strong id="completedCount"></strong></p>
+  <p>Total Minutes Taught: <strong id="minutesCount"></strong></p>
+</div>
+
+<div class="card leaderboard">
+  <h3>Leaderboard</h3>
+  <div id="leaderboard"></div>
+</div>
+
+<script>
+const students = JSON.parse(localStorage.getItem("students") || "[]");
+const lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
+const past = JSON.parse(localStorage.getItem("pastLessons") || "[]");
+
+studentsCount.innerText = students.length;
+lessonsCount.innerText = lessons.length;
+completedCount.innerText = past.length;
+minutesCount.innerText = past.reduce((a,b) => a + b.durationMins, 0);
+
+const totals = {};
+past.forEach(l => {
+  totals[l.studentId] = (totals[l.studentId] || 0) + l.durationMins;
+});
+
+Object.entries(totals)
+  .sort((a,b) => b[1] - a[1])
+  .forEach(([id, mins]) => {
+    const s = students.find(x => x.id == id);
+    leaderboard.innerHTML += `
+      <div class="leader-row">
+        ${s?.firstName} ${s?.lastName} — <strong>${mins}mins</strong>
+      </div>
+    `;
+  });
+</script>
+
+</body>
+</html>

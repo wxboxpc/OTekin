@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="students-top-card">
+  <div class="card students-top collapsed" id="assignForm">
+    <div class="students-header">
+      <button class="toggle-btn" onclick="toggleAssignForm()">Show</button>
+    </div>
+
+    <select id="student"></select>
+    <input id="lessonName" placeholder="Lesson Name">
+    <input type="hidden" id="editingLessonId">
+    <textarea id="lessonNote" placeholder="Lesson note (optional)"></textarea>
+    <input type="date" id="date">
+
+    <label>Start Time</label>
+    <div style="display:flex;gap:6px">
+      <select id="startHour"></select>
+      <select id="startMinute"></select>
+    </div>
+
+    <label>End Time</label>
+    <div style="display:flex;gap:6px">
+      <select id="endHour"></select>
+      <select id="endMinute"></select>
+    </div>
+
+    <button onclick="addLesson()">Assign Lesson</button>
+  </div>
+</div>
+
+<div class="calendar-section" id="calendar"></div>
+
+<script src="calendar.js"></script>
+</body>
+</html>

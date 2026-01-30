@@ -1,0 +1,268 @@
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #222224;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 80px;
+  background: #111;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nav-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px;
+}
+.nav-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: white;
+  margin: 15px 0;
+  font-size: 13px;
+}
+
+.content {
+  flex: 1;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.card {
+  background: white;
+  margin: 10px;
+  padding: 12px;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.assign-section {
+  background: #222224;
+  padding: 10px;
+}
+
+.calendar-section {
+  background: #222224;
+  padding-bottom: 20px;
+}
+
+.lesson {
+  background: #d6ebff;
+  margin: 10px;
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.lesson img {
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.lesson-header {
+  font-weight: bold;
+}
+
+input, textarea, select, button {
+  width: 100%;
+  margin: 6px 0;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #007aff;
+  color: white;
+  border: none;
+}
+
+.logo {
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 6px;
+  padding: 10px 6px;
+  border-radius: 12px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.nav-btn svg {
+  opacity: 0.95;
+}
+
+/* Hover (desktop) */
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Active / pressed (mobile & desktop) */
+.nav-btn:active {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0.95);
+}
+
+
+.nav-btn:active svg {
+  opacity: 1;
+  transform: scale(0.95);
+}
+
+/* Active nav tab */
+.nav-btn.active {
+  background: rgba(255,255,255,0.35);
+}
+
+/* Badge counter */
+.badge {
+  background: #ff3b30;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-top: 4px;
+}
+
+/* Haptic-style tap animation */
+.nav-btn {
+  transition: transform 0.12s ease, background 0.2s ease;
+}
+
+.nav-btn:active {
+  transform: scale(0.92);
+}
+
+/* Students page sections */
+.students-top-card {
+  background: #222224;
+  padding: 10px;
+}
+
+.students-bottom {
+  background: #222224;
+  padding: 10px;
+}
+
+.leaderboard {
+  background: #eef6ff;
+}
+
+.leader-row {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.lesson-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.lesson-actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.lesson-actions button:active {
+  transform: scale(0.96);
+}
+
+.lesson-actions button:nth-child(1) { background: #2663b3; } /* Edit */
+.lesson-actions button:nth-child(2) { background: #bc1818; } /* Delete */
+.lesson-actions button:nth-child(3) { background: #02a33b; } /* Complete */
+
+/* Primary action button (Assign / Save Lesson) */
+button {
+  background: #007aff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+/* Hover (desktop) */
+button:hover {
+  box-shadow: 0 6px 16px rgba(0, 122, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Active / pressed (mobile & desktop) */
+button:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.4);
+}
+
+.students-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-btn {
+  background: #323336;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Collapsed state */
+.students-top.collapsed {
+  padding-bottom: 10px;
+}
+
+.students-top.collapsed input,
+.students-top.collapsed textarea,
+.students-top.collapsed select,
+.students-top.collapsed label,
+.students-top.collapsed button:not(.toggle-btn) {
+  display: none;
+}

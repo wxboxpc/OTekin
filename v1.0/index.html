@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Tracker</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app">
+  <nav class="sidebar">
+    <div class="logo">📚</div>
+
+    <button class="nav-btn active" data-page="students.html" onclick="navigate(this)">
+      👤
+      <span>Students</span>
+      <span class="badge" id="studentBadge">0</span>
+    </button>
+
+    <button class="nav-btn" data-page="calendar.html" onclick="navigate(this)">
+      📅
+      <span>Calendar</span>
+      <span class="badge" id="lessonBadge">0</span>
+    </button>
+
+    <button class="nav-btn" data-page="stats.html" onclick="navigate(this)">
+      📊
+      <span>Stats</span>
+    </button>
+
+    <button class="nav-btn" onclick="exportData()">
+      📤
+      <span>Export</span>
+    </button>
+
+    <button class="nav-btn" onclick="importData()">
+      📥
+      <span>Import</span>
+    </button>
+  </nav>
+
+  <main class="content">
+    <iframe id="view" src="students.html"></iframe>
+  </main>
+</div>
+
+<input type="file" id="importFile" accept=".st" hidden>
+
+<script>
+function navigate(btn) {
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("view").src = btn.dataset.page;
+}
+
+function updateBadges() {
+  document.getElementById("studentBadge").innerText =
+    JSON.parse(localStorage.getItem("students") || "[]").length;
+
+  document.getElementById("lessonBadge").innerText =
+    JSON.parse(localStorage.getItem("lessons") || "[]").length;
+}
+
+function exportData() {
+  const data = JSON.stringify(localStorage);
+  const blob = new Blob([data], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "student_tracker_backup.st";
+  a.click();
+}
+
+function importData() {
+  document.getElementById("importFile").click();
+}
+
+document.getElementById("importFile").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const data = JSON.parse(reader.result);
+    localStorage.clear();
+    Object.keys(data).forEach(k => localStorage.setItem(k, data[k]));
+    alert("Data imported successfully");
+    updateBadges();
+    location.reload();
+  };
+  reader.readAsText(file);
+});
+
+updateBadges();
+</script>
+
+</body>
+</html>

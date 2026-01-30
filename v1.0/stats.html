@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="card">
+  <h3>Statistics</h3>
+  <p>Total Students: <strong id="studentsCount"></strong></p>
+  <p>Total Lessons: <strong id="lessonsCount"></strong></p>
+</div>
+
+<script>
+document.getElementById("studentsCount").innerText =
+  JSON.parse(localStorage.getItem("students") || "[]").length;
+
+document.getElementById("lessonsCount").innerText =
+  JSON.parse(localStorage.getItem("lessons") || "[]").length;
+</script>
+
+</body>
+</html>
